@@ -15,7 +15,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
         options.SignIn.RequireConfirmedAccount = true;
         //options.Password.RequireDigit = false; change this to change password behaviour
     })
-    .AddEntityFrameworkStores<ModelDbContext>();
+    .AddEntityFrameworkStores<ModelDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 // default blazor pages
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
