@@ -1,14 +1,3 @@
-using Domain.Repositories.Implementations;
-using Domain.Repositories.Interfaces;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
-using Model.Configuration;
-using MudBlazor;
-using MudBlazor.Services;
-using View.Areas.Identity;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -42,7 +31,8 @@ builder.Services.AddMudServices(config => {
     config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
 });
 // authentication
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+builder.Services
+    .AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 
 //your custom services
 builder.Services.AddScoped<IThemeHandler, ThemeHandler>();

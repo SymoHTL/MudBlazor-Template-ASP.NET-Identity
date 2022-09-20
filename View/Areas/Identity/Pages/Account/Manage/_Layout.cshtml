@@ -1,10 +1,9 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
-    {
-        Layout = (string)parentLayout;
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout)) {
+        Layout = (string)parentLayout!;
     }
-    else
-    {
+    else {
+        // ReSharper disable once Razor.LayoutNotResolved
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
@@ -13,10 +12,10 @@
 
 <div>
     <h2>Change your account settings</h2>
-    <hr />
+    <hr/>
     <div class="row">
         <div class="col-md-3">
-            <partial name="_ManageNav" />
+            <partial name="_ManageNav"/>
         </div>
         <div class="col-md-9">
             @RenderBody()
@@ -25,5 +24,5 @@
 </div>
 
 @section Scripts {
-    @RenderSection("Scripts", required: false)
+    @RenderSectionAsync("Scripts", false)
 }

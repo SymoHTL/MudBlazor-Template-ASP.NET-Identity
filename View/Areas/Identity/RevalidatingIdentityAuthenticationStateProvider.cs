@@ -1,16 +1,13 @@
 using System.Security.Claims;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace View.Areas.Identity;
 
 public class RevalidatingIdentityAuthenticationStateProvider<TUser>
     : RevalidatingServerAuthenticationStateProvider where TUser : class {
-    private readonly IServiceScopeFactory _scopeFactory;
     private readonly IdentityOptions _options;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     public RevalidatingIdentityAuthenticationStateProvider(
         ILoggerFactory loggerFactory,
@@ -32,27 +29,23 @@ public class RevalidatingIdentityAuthenticationStateProvider<TUser>
             return await ValidateSecurityStampAsync(userManager, authenticationState.User);
         }
         finally {
-            if (scope is IAsyncDisposable asyncDisposable) {
+            if (scope is IAsyncDisposable asyncDisposable)
                 await asyncDisposable.DisposeAsync();
-            }
-            else {
+            else
                 scope.Dispose();
-            }
         }
     }
 
     private async Task<bool> ValidateSecurityStampAsync(UserManager<TUser> userManager, ClaimsPrincipal principal) {
         var user = await userManager.GetUserAsync(principal);
-        if (user == null) {
-            return false;
-        }
-        else if (!userManager.SupportsUserSecurityStamp) {
+        if (user == null) return false;
+
+        if (!userManager.SupportsUserSecurityStamp) {
             return true;
         }
-        else {
-            var principalStamp = principal.FindFirstValue(_options.ClaimsIdentity.SecurityStampClaimType);
-            var userStamp = await userManager.GetSecurityStampAsync(user);
-            return principalStamp == userStamp;
-        }
+
+        var principalStamp = principal.FindFirstValue(_options.ClaimsIdentity.SecurityStampClaimType);
+        var userStamp = await userManager.GetSecurityStampAsync(user);
+        return principalStamp == userStamp;
     }
 }
