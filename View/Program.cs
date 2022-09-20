@@ -11,11 +11,13 @@ builder.Services.AddDbContextFactory<ModelDbContext>(
 );
 
 // Identity User settings
-builder.Services.AddDefaultIdentity<IdentityUser>(options => {
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => {
         options.SignIn.RequireConfirmedAccount = true;
         //options.Password.RequireDigit = false; change this to change password behaviour
     })
-    .AddEntityFrameworkStores<ModelDbContext>();
+    .AddEntityFrameworkStores<ModelDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 // default blazor pages
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

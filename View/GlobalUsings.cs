@@ -18,6 +18,8 @@ global using Microsoft.AspNetCore.WebUtilities;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging.Abstractions;
 global using Model.Configuration;
+global using Model.Entities.Application.Role;
+global using Model.Entities.Application.User;
 global using Model.Entities.Theme;
 global using MudBlazor;
 global using MudBlazor.Services;
