@@ -1,0 +1,30 @@
+﻿@inject IThemeHandler ThemeHandler
+@implements IDisposable
+
+<MudAppBar Class="px-8"
+           Elevation="0"
+           Style="@GetStyle()">
+    <div class="d-flex justify-content-between align-items-center w-100 h-100">
+        <MudSpacer/>
+        <div>
+            <LoginDisplay/>
+        </div>
+    </div>
+</MudAppBar>
+
+@code {
+
+    protected override void OnInitialized() {
+        ThemeHandler.ThemeChange += Invoker;
+    }
+
+    public void Dispose() {
+        ThemeHandler.ThemeChange -= Invoker;
+    }
+
+    private async void Invoker() =>
+        await InvokeAsync(StateHasChanged);
+
+    private string GetStyle() =>
+        ThemeHandler.DarkMode ? "background: rgba(21,27,34,0.7)" : "background: rgba(255,255,255,0.7)";
+}
