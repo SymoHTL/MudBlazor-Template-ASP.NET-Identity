@@ -1,6 +1,6 @@
 # MudBlazor-Template
 
-__This is my Defaut-Theme when i am doing a project with mudblazor and mysql.__
+__This is my Defaut-Theme when i am doing a project with mudblazor and mysql and ASP.NET Identity.__
 >Maybe you like it too.
 
 ![Index Image](/Index.png)
